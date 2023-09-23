@@ -19,7 +19,7 @@ def get_cli_args():
     parser.add_argument(
         "--num_workers",
         type=int,
-        default=2,
+        default=8,  # 2
         help="Number of workers to use for sample collection. Setting it zero will use same worker for collection and model training.",
     )
     parser.add_argument(
@@ -60,7 +60,7 @@ def get_cli_args():
     parser.add_argument(
         "--seed",
         type=int,
-        default=123,
+        default=456,  # 123
         help="Seed to run",
     )
     parser.add_argument(
@@ -153,12 +153,14 @@ if __name__ == "__main__":
         wdb_callbacks = []
         print("WARNING! No wandb API key found, running without wandb!")
 
+    # if tuning need to modify param_space not just configs.to_dict()
+    # https://docs.ray.io/en/latest/ray-air/tuner.html
     # Setup hyper-parameter optimization configs here
-    if not args.tune:
-        # NotImplementedError
-        tune_config = None
-    else:
-        tune_config = tune.TuneConfig(reuse_actors=False)
+    # if not args.tune:
+    #     # NotImplementedError
+    #     tune_config = None
+    # else:
+    #     tune_config = tune.TuneConfig(reuse_actors=False)
 
     # Setup checkpointing configurations
     ckpt_config = air.CheckpointConfig(

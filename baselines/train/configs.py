@@ -60,29 +60,29 @@ def get_experiment_config(args, default_config):
         "env_config": {"substrate": substrate_name, "roles": player_roles, "scaled": scale_factor},
         # training
         "seed": args.seed,
-        "rollout_fragment_length": 10,  # 1000
-        "train_batch_size": 400,  # 4x that of sgd_minibatch_size
-        "sgd_minibatch_size": 32,
+        "rollout_fragment_length": 10,  # 10
+        "train_batch_size": 400,  # at least 4x that of sgd_minibatch_size
+        "sgd_minibatch_size": 32,  # 32
         "disable_observation_precprocessing": True,
         "use_new_rl_modules": False,
         "use_new_learner_api": False,
         "framework": args.framework,
         # agent model
-        "fcnet_hidden": (4, 4),
-        "post_fcnet_hidden": (16,),
+        "fcnet_hidden": (64, 64),  # (4, 4)
+        "post_fcnet_hidden": (32,),  # 16
         "cnn_activation": "relu",
         "fcnet_activation": "relu",
         "post_fcnet_activation": "relu",
         "use_lstm": True,  # max_seq_len default 20
         "lstm_use_prev_action": True,
         "lstm_use_prev_reward": False,
-        "lstm_cell_size": 2,  # 256
+        "lstm_cell_size": 128,  # 2
         "shared_policy": False,
         # experiment trials
         "exp_name": args.exp,
         "stopping": {
-            # "timesteps_total": 1000000,
-            "training_iteration": 1,
+            "timesteps_total": 1000000,  # 1000000
+            # "training_iteration": 1,
             # "episode_reward_mean": 100,
         },
         "num_checkpoints": 5,
